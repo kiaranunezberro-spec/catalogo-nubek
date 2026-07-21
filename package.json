@@ -1,0 +1,14 @@
+{
+  "name": "catalogo-nubek",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Publicación del catálogo Nubek en Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.112.0"
+  }
+}
