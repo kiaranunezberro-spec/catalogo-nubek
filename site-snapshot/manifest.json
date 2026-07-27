@@ -1,9 +1,37 @@
 [
   {
     "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/",
-    "path": "site-snapshot/worker/index.html",
+    "path": "site-snapshot/worker/inicio.html",
     "content_type": "text/html; charset=utf-8",
     "bytes": 16083
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/catalogo",
+    "path": "site-snapshot/worker/catalogo.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 52809
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/cajas",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/temporada",
+    "path": "site-snapshot/worker/temporada.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46938
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/servicios",
+    "path": "site-snapshot/worker/servicios.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 18231
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/ingresar",
+    "path": "site-snapshot/worker/ingresar.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 13412
   },
   {
     "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/index-m8A-xWLu.css",
@@ -132,10 +160,50 @@
     "bytes": 23108
   },
   {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/CatalogClient-Dg9o0JQe.js",
+    "path": "site-snapshot/worker/assets/assets_CatalogClient-Dg9o0JQe.js",
+    "content_type": "text/javascript",
+    "bytes": 216863
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/AuthLandingClient-Bd7C-Gxj.js",
+    "path": "site-snapshot/worker/assets/assets_AuthLandingClient-Bd7C-Gxj.js",
+    "content_type": "text/javascript",
+    "bytes": 5254
+  },
+  {
     "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/",
-    "path": "site-snapshot/origin/index.html",
+    "path": "site-snapshot/origin/inicio.html",
     "content_type": "text/html; charset=utf-8",
     "bytes": 17021
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/catalogo",
+    "path": "site-snapshot/origin/catalogo.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 53747
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/cajas",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/temporada",
+    "path": "site-snapshot/origin/temporada.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 47876
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/servicios",
+    "path": "site-snapshot/origin/servicios.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 19169
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/ingresar",
+    "path": "site-snapshot/origin/ingresar.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 14350
   },
   {
     "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/index-m8A-xWLu.css",
@@ -267,6 +335,18 @@
     "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/cdn-cgi/challenge-platform/scripts/jsd/main.js",
     "path": "site-snapshot/origin/assets/cdn-cgi_challenge-platform_scripts_jsd_main.js",
     "content_type": "application/javascript; charset=UTF-8",
-    "bytes": 21202
+    "bytes": 20402
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/CatalogClient-Dg9o0JQe.js",
+    "path": "site-snapshot/origin/assets/assets_CatalogClient-Dg9o0JQe.js",
+    "content_type": "text/javascript",
+    "bytes": 216863
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/AuthLandingClient-Bd7C-Gxj.js",
+    "path": "site-snapshot/origin/assets/assets_AuthLandingClient-Bd7C-Gxj.js",
+    "content_type": "text/javascript",
+    "bytes": 5254
   }
 ]
