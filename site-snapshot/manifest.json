@@ -1,0 +1,272 @@
+[
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/",
+    "path": "site-snapshot/worker/index.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 16083
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/index-m8A-xWLu.css",
+    "path": "site-snapshot/worker/assets/assets_index-m8A-xWLu.css",
+    "content_type": "text/css",
+    "bytes": 59925
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/layout-segment-context-Df0tFnyW.js",
+    "path": "site-snapshot/worker/assets/assets_layout-segment-context-Df0tFnyW.js",
+    "content_type": "text/javascript",
+    "bytes": 288
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/rolldown-runtime-S-ySWqyJ.js",
+    "path": "site-snapshot/worker/assets/assets_rolldown-runtime-S-ySWqyJ.js",
+    "content_type": "text/javascript",
+    "bytes": 694
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/index-tPVtMYLx.js",
+    "path": "site-snapshot/worker/assets/assets_index-tPVtMYLx.js",
+    "content_type": "text/javascript",
+    "bytes": 82784
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/framework-CXnKph_e.js",
+    "path": "site-snapshot/worker/assets/assets_framework-CXnKph_e.js",
+    "content_type": "text/javascript",
+    "bytes": 189805
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/HomeClient-BkSXcCAY.js",
+    "path": "site-snapshot/worker/assets/assets_HomeClient-BkSXcCAY.js",
+    "content_type": "text/javascript",
+    "bytes": 4878
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/CommentsClient-CS1cm_Id.js",
+    "path": "site-snapshot/worker/assets/assets_CommentsClient-CS1cm_Id.js",
+    "content_type": "text/javascript",
+    "bytes": 2138
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/SiteChrome-DFwKEg8Z.js",
+    "path": "site-snapshot/worker/assets/assets_SiteChrome-DFwKEg8Z.js",
+    "content_type": "text/javascript",
+    "bytes": 1531
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/OwnerEditLink-D19yftLh.js",
+    "path": "site-snapshot/worker/assets/assets_OwnerEditLink-D19yftLh.js",
+    "content_type": "text/javascript",
+    "bytes": 487
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/link-CAv9wn0u.js",
+    "path": "site-snapshot/worker/assets/assets_link-CAv9wn0u.js",
+    "content_type": "text/javascript",
+    "bytes": 9641
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-8ac0455e797f/geist-ff2310f5.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-ff2310f5.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 7252
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-8ac0455e797f/geist-875ccdd4.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-875ccdd4.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 14900
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-8ac0455e797f/geist-52306abf.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-52306abf.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 7968
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-8ac0455e797f/geist-001175b1.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-001175b1.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 16540
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-8ac0455e797f/geist-98bbbccb.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-98bbbccb.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 29288
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-f6b33328.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 6204
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-44e03052.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 12872
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-0638449e.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 5892
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-971fb274.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 7728
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-44745446.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-44745446.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 14712
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.workers.dev/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2",
+    "path": "site-snapshot/worker/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-013b2f2f.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 23108
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/",
+    "path": "site-snapshot/origin/index.html",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 17021
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/index-m8A-xWLu.css",
+    "path": "site-snapshot/origin/assets/assets_index-m8A-xWLu.css",
+    "content_type": "text/css",
+    "bytes": 59925
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/layout-segment-context-Df0tFnyW.js",
+    "path": "site-snapshot/origin/assets/assets_layout-segment-context-Df0tFnyW.js",
+    "content_type": "text/javascript",
+    "bytes": 288
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/rolldown-runtime-S-ySWqyJ.js",
+    "path": "site-snapshot/origin/assets/assets_rolldown-runtime-S-ySWqyJ.js",
+    "content_type": "text/javascript",
+    "bytes": 694
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/index-tPVtMYLx.js",
+    "path": "site-snapshot/origin/assets/assets_index-tPVtMYLx.js",
+    "content_type": "text/javascript",
+    "bytes": 82784
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/framework-CXnKph_e.js",
+    "path": "site-snapshot/origin/assets/assets_framework-CXnKph_e.js",
+    "content_type": "text/javascript",
+    "bytes": 189805
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/HomeClient-BkSXcCAY.js",
+    "path": "site-snapshot/origin/assets/assets_HomeClient-BkSXcCAY.js",
+    "content_type": "text/javascript",
+    "bytes": 4878
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/CommentsClient-CS1cm_Id.js",
+    "path": "site-snapshot/origin/assets/assets_CommentsClient-CS1cm_Id.js",
+    "content_type": "text/javascript",
+    "bytes": 2138
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/SiteChrome-DFwKEg8Z.js",
+    "path": "site-snapshot/origin/assets/assets_SiteChrome-DFwKEg8Z.js",
+    "content_type": "text/javascript",
+    "bytes": 1531
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/OwnerEditLink-D19yftLh.js",
+    "path": "site-snapshot/origin/assets/assets_OwnerEditLink-D19yftLh.js",
+    "content_type": "text/javascript",
+    "bytes": 487
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/link-CAv9wn0u.js",
+    "path": "site-snapshot/origin/assets/assets_link-CAv9wn0u.js",
+    "content_type": "text/javascript",
+    "bytes": 9641
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-8ac0455e797f/geist-ff2310f5.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-ff2310f5.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 7252
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-8ac0455e797f/geist-875ccdd4.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-875ccdd4.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 14900
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-8ac0455e797f/geist-52306abf.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-52306abf.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 7968
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-8ac0455e797f/geist-001175b1.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-001175b1.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 16540
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-8ac0455e797f/geist-98bbbccb.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-8ac0455e797f_geist-98bbbccb.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 29288
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-f6b33328.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 6204
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-44e03052.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 12872
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-0638449e.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 5892
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-971fb274.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 7728
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-44745446.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-44745446.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 14712
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/assets/_vinext_fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2",
+    "path": "site-snapshot/origin/assets/assets__vinext_fonts_geist-mono-00e989178794_geist-mono-013b2f2f.woff2",
+    "content_type": "application/octet-stream",
+    "bytes": 23108
+  },
+  {
+    "url": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+    "path": "site-snapshot/origin/assets/cdn-cgi_challenge-platform_scripts_jsd_main.js",
+    "content_type": "application/javascript; charset=UTF-8",
+    "bytes": 21202
+  }
+]
