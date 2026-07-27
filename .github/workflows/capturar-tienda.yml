@@ -114,11 +114,99 @@ jobs:
               json.dump(manifest, f, ensure_ascii=False, indent=2)
           PY
 
+      - name: Analizar catálogo publicado
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import glob
+          import json
+          import os
+          import re
+
+          matches = glob.glob("site-snapshot/worker/assets/*CatalogClient*.js")
+          if not matches:
+              raise SystemExit("No se encontró CatalogClient")
+          path = matches[0]
+          text = open(path, encoding="utf-8", errors="replace").read()
+
+          product_pattern = re.compile(
+              r"\{code:`(?P<code>[^`]*)`,name:`(?P<name>[^`]*)`,detail:`(?P<detail>[^`]*)`,price:`(?P<price>[^`]*)`,category:`(?P<category>[^`]*)`,subcategory:`(?P<subcategory>[^`]*)`,image:`(?P<image>[^`]*)`,colors:\[(?P<colors>.*?)\],colorImages:\{(?P<color_images>.*?)\},galleryImages:\[(?P<gallery>.*?)\],stock:(?P<stock>[^,}]+),colorStock:\{(?P<color_stock>.*?)\},availability:`(?P<availability>[^`]*)`\}"
+          )
+
+          def literals(fragment):
+              return re.findall(r"`([^`]*)`", fragment)
+
+          products = []
+          for match in product_pattern.finditer(text):
+              item = match.groupdict()
+              item["colors"] = literals(item["colors"])
+              item["gallery"] = literals(item["gallery"])
+              item["color_image_pairs"] = re.findall(r"(?:`([^`]*)`|([A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9_ -]+)):`([^`]*)`", item.pop("color_images"))
+              item["stock"] = item["stock"].strip()
+              item.pop("color_stock")
+              products.append(item)
+
+          os.makedirs("site-snapshot/analysis", exist_ok=True)
+          with open("site-snapshot/analysis/catalog-products.json", "w", encoding="utf-8") as f:
+              json.dump(products, f, ensure_ascii=False, indent=2)
+
+          with open("site-snapshot/analysis/catalog-products.tsv", "w", encoding="utf-8") as f:
+              f.write("code\tname\tcategory\tsubcategory\tprice\timage\tcolors\n")
+              for p in products:
+                  f.write("\t".join([
+                      p["code"], p["name"], p["category"], p["subcategory"], p["price"], p["image"], ", ".join(p["colors"])
+                  ]) + "\n")
+
+          keywords = [
+              "ceramica 20x20", "cerámica 20x20", "20x20", "jarra cervecera",
+              "tornasol", "gris", "caja", "combo", "cumple", "primera comun",
+              "descuento", "semana", "oferta"
+          ]
+          contexts = []
+          lower = text.lower()
+          for keyword in keywords:
+              start = 0
+              while True:
+                  pos = lower.find(keyword.lower(), start)
+                  if pos < 0:
+                      break
+                  snippet = text[max(0, pos - 700):min(len(text), pos + 1100)]
+                  contexts.append({"keyword": keyword, "position": pos, "snippet": snippet})
+                  start = pos + len(keyword)
+                  if sum(1 for c in contexts if c["keyword"] == keyword) >= 30:
+                      break
+
+          with open("site-snapshot/analysis/keyword-contexts.json", "w", encoding="utf-8") as f:
+              json.dump(contexts, f, ensure_ascii=False, indent=2)
+
+          problem_terms = re.compile(r"cer[aá]mica|jarra cervecera|tornasol|caja|combo", re.I)
+          targeted = [p for p in products if problem_terms.search(p["name"] + " " + p["detail"] + " " + p["subcategory"])]
+          with open("site-snapshot/analysis/target-products.json", "w", encoding="utf-8") as f:
+              json.dump(targeted, f, ensure_ascii=False, indent=2)
+
+          # Fragmentos del comienzo y del final para entender la lógica de interfaz y descuentos.
+          with open("site-snapshot/analysis/catalog-head.txt", "w", encoding="utf-8") as f:
+              f.write(text[:60000])
+          with open("site-snapshot/analysis/catalog-tail.txt", "w", encoding="utf-8") as f:
+              f.write(text[-90000:])
+
+          summary = {
+              "bundle": path,
+              "bytes": len(text.encode("utf-8")),
+              "products_parsed": len(products),
+              "targeted_products": len(targeted),
+              "keywords_found": {k: lower.count(k.lower()) for k in keywords},
+          }
+          with open("site-snapshot/analysis/summary.json", "w", encoding="utf-8") as f:
+              json.dump(summary, f, ensure_ascii=False, indent=2)
+          PY
+
       - name: Guardar captura en la rama
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site-snapshot
-          git commit -m "[snapshot] Capturar rutas de la tienda Nubek"
+          git commit -m "[snapshot] Analizar catálogo Nubek publicado"
           git push origin HEAD:catalogo-correcciones-julio-2026
