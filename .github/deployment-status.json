@@ -1,0 +1,9 @@
+{
+  "status": "failure",
+  "deployed_commit": "2f9cc8961aa52cdc8aa6e51271a535525c088c69",
+  "checked_at": "2026-07-27T11:16:46.806845+00:00",
+  "deploy_exit_code": "1",
+  "public_verification": "skipped",
+  "workflow_run": "https://github.com/kiaranunezberro-spec/catalogo-nubek/actions/runs/30261317227",
+  "deployment_log_tail": "\n> catalogo-nubek@1.0.0 deploy\n> wrangler deploy\n\n\n ⛅️ wrangler 4.112.0\n────────────────────\n\nCloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md\n\n\u001b[31m✘ \u001b[41;31m[\u001b[41;97mERROR\u001b[41;31m]\u001b[0m \u001b[1mIn a non-interactive environment, it's necessary to set a CLOUDFLARE_API_TOKEN environment variable for wrangler to work. Please go to https://developers.cloudflare.com/fundamentals/api/get-started/create-token/ for instructions on how to create an api token, and assign its value to CLOUDFLARE_API_TOKEN.\u001b[0m\n\n  \n  To continue without logging in, rerun this command with `--temporary`. Wrangler will use a temporary account and print a claim URL.\n\n\n🪵  Logs were written to \"/home/runner/.config/.wrangler/logs/wrangler-2026-07-27_11-16-46_086.log\"\n"
+}
