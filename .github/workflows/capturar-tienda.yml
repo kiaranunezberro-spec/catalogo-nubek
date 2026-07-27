@@ -1,0 +1,102 @@
+name: Capturar tienda Nubek
+
+on:
+  push:
+    branches:
+      - catalogo-correcciones-julio-2026
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    if: ${{ !contains(github.event.head_commit.message, '[snapshot]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: catalogo-correcciones-julio-2026
+
+      - name: Descargar HTML y recursos principales
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf site-snapshot
+          mkdir -p site-snapshot
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import urllib.parse
+          import urllib.request
+
+          roots = {
+              "worker": "https://catalogo-nubek.kiaranunezberro.workers.dev/",
+              "origin": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/",
+          }
+
+          headers = {"User-Agent": "Mozilla/5.0 NubekSnapshot/1.0"}
+          manifest = []
+
+          def fetch(url):
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  return response.read(), response.headers.get("content-type", "")
+
+          for label, root in roots.items():
+              folder = os.path.join("site-snapshot", label)
+              os.makedirs(folder, exist_ok=True)
+              data, content_type = fetch(root)
+              html_path = os.path.join(folder, "index.html")
+              with open(html_path, "wb") as f:
+                  f.write(data)
+              manifest.append({"url": root, "path": html_path, "content_type": content_type, "bytes": len(data)})
+
+              text = data.decode("utf-8", errors="replace")
+              candidates = re.findall(r'''(?:src|href)=["']([^"']+)["']''', text, flags=re.I)
+              seen = set()
+              downloaded = 0
+              for value in candidates:
+                  absolute = urllib.parse.urljoin(root, value)
+                  parsed = urllib.parse.urlparse(absolute)
+                  if parsed.scheme not in {"http", "https"}:
+                      continue
+                  if parsed.netloc not in {urllib.parse.urlparse(root).netloc, "catalogo-nubek.kiaranunezberro.chatgpt.site"}:
+                      continue
+                  path_lower = parsed.path.lower()
+                  if not (path_lower.endswith((".js", ".css", ".json")) or "/_next/" in path_lower or "/assets/" in path_lower):
+                      continue
+                  clean_url = urllib.parse.urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, parsed.query, ""))
+                  if clean_url in seen or downloaded >= 80:
+                      continue
+                  seen.add(clean_url)
+                  try:
+                      asset, asset_type = fetch(clean_url)
+                  except Exception as exc:
+                      manifest.append({"url": clean_url, "error": str(exc)})
+                      continue
+                  if len(asset) > 2_500_000:
+                      manifest.append({"url": clean_url, "skipped": "too_large", "bytes": len(asset)})
+                      continue
+                  safe = re.sub(r"[^A-Za-z0-9._-]+", "_", parsed.path.strip("/") or "asset")
+                  if parsed.query:
+                      safe += "_" + re.sub(r"[^A-Za-z0-9._-]+", "_", parsed.query)[:80]
+                  asset_path = os.path.join(folder, "assets", safe)
+                  os.makedirs(os.path.dirname(asset_path), exist_ok=True)
+                  with open(asset_path, "wb") as f:
+                      f.write(asset)
+                  manifest.append({"url": clean_url, "path": asset_path, "content_type": asset_type, "bytes": len(asset)})
+                  downloaded += 1
+
+          with open("site-snapshot/manifest.json", "w", encoding="utf-8") as f:
+              json.dump(manifest, f, ensure_ascii=False, indent=2)
+          PY
+
+      - name: Guardar captura en la rama
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site-snapshot
+          git commit -m "[snapshot] Capturar tienda Nubek actual"
+          git push origin HEAD:catalogo-correcciones-julio-2026
