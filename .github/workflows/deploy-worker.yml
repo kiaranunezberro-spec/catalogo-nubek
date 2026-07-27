@@ -1,0 +1,124 @@
+name: Publicar Cloudflare Worker
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    if: ${{ !contains(github.event.head_commit.message, '[deploy-status]') }}
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || secrets.CF_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Publicar Worker
+        id: deploy
+        shell: bash
+        run: |
+          set +e
+          npm run deploy > deployment.log 2>&1
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          tail -n 120 deployment.log > deployment-tail.log
+          cat deployment-tail.log
+      - name: Verificar versión pública
+        id: verify
+        if: steps.deploy.outputs.code == '0'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p live-check
+          base="https://catalogo-nubek.kiaranunezberro.workers.dev"
+          for attempt in 1 2 3 4 5; do
+            curl --fail --silent --show-error --location "$base/catalogo?version=20260727" -o live-check/catalogo.html || true
+            if grep -q "nubek-enhancements.js" live-check/catalogo.html 2>/dev/null; then
+              break
+            fi
+            sleep 5
+          done
+          curl --fail --silent --show-error --location "$base/nubek-enhancements.js?version=20260727" -o live-check/nubek-enhancements.js
+          curl --fail --silent --show-error --location "$base/nubek-enhancements.css?version=20260727" -o live-check/nubek-enhancements.css
+          curl --fail --silent --show-error --location "$base/api/weekly-discount?version=20260727" -o live-check/weekly-discount.json
+          curl --fail --silent --show-error --location "$base/nubek-fixes/ceramica-20x20.webp" -o live-check/ceramica-20x20.webp
+          curl --fail --silent --show-error --location "$base/nubek-fixes/jarra-cervecera-blanca.jpg" -o live-check/jarra-cervecera-blanca.jpg
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("live-check")
+          html = (root / "catalogo.html").read_text(errors="replace")
+          script = (root / "nubek-enhancements.js").read_text(errors="replace")
+          css = (root / "nubek-enhancements.css").read_text(errors="replace")
+          deal = json.loads((root / "weekly-discount.json").read_text())
+
+          assert "nubek-enhancements.js" in html
+          assert "Cajas para momentos importantes" in script
+          assert "gris tornasol" in script.lower()
+          assert "nubek-subcategory-showcase" in css
+
+          candidate = deal.get("deal", deal)
+          code = str(candidate.get("productCode", "")) if isinstance(candidate, dict) else ""
+          descriptor = json.dumps(candidate, ensure_ascii=False).lower()
+          assert code.startswith("NB-"), code
+          assert "día de la madre" not in descriptor and "dia de la madre" not in descriptor
+          assert (root / "ceramica-20x20.webp").stat().st_size > 5000
+          assert (root / "jarra-cervecera-blanca.jpg").stat().st_size > 5000
+          PY
+      - name: Registrar resultado
+        if: always()
+        shell: bash
+        env:
+          DEPLOY_CODE: ${{ steps.deploy.outputs.code }}
+          VERIFY_RESULT: ${{ steps.verify.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          deploy_code = os.environ.get("DEPLOY_CODE", "unknown")
+          verify_result = os.environ.get("VERIFY_RESULT", "skipped")
+          success = deploy_code == "0" and verify_result == "success"
+          log = Path("deployment-tail.log").read_text(errors="replace") if Path("deployment-tail.log").exists() else ""
+          status = {
+              "status": "success" if success else "failure",
+              "deployed_commit": os.environ.get("GITHUB_SHA", ""),
+              "checked_at": datetime.now(timezone.utc).isoformat(),
+              "deploy_exit_code": deploy_code,
+              "public_verification": verify_result,
+              "workflow_run": f"{os.environ.get('GITHUB_SERVER_URL')}/{os.environ.get('GITHUB_REPOSITORY')}/actions/runs/{os.environ.get('GITHUB_RUN_ID')}",
+              "deployment_log_tail": log[-6000:],
+          }
+          Path(".github/deployment-status.json").write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/deployment-status.json
+          git commit -m "[deploy-status] Registrar publicación del catálogo" || true
+          git push origin HEAD:main
+      - name: Confirmar publicación
+        if: always()
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          status = json.load(open('.github/deployment-status.json'))
+          if status['status'] != 'success':
+              raise SystemExit('La publicación o la verificación pública falló')
+          print('Catálogo Nubek publicado y verificado correctamente')
+          PY
