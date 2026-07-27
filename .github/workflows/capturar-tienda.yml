@@ -17,7 +17,7 @@ jobs:
         with:
           ref: catalogo-correcciones-julio-2026
 
-      - name: Descargar HTML y recursos principales
+      - name: Descargar páginas y recursos principales
         shell: bash
         run: |
           set -euo pipefail
@@ -31,33 +31,54 @@ jobs:
           import urllib.request
 
           roots = {
-              "worker": "https://catalogo-nubek.kiaranunezberro.workers.dev/",
-              "origin": "https://catalogo-nubek.kiaranunezberro.chatgpt.site/",
+              "worker": "https://catalogo-nubek.kiaranunezberro.workers.dev",
+              "origin": "https://catalogo-nubek.kiaranunezberro.chatgpt.site",
           }
+          routes = [
+              "/",
+              "/catalogo",
+              "/cajas",
+              "/temporada",
+              "/servicios",
+              "/ingresar",
+          ]
 
           headers = {"User-Agent": "Mozilla/5.0 NubekSnapshot/1.0"}
           manifest = []
+          global_seen = set()
 
           def fetch(url):
               req = urllib.request.Request(url, headers=headers)
-              with urllib.request.urlopen(req, timeout=30) as response:
+              with urllib.request.urlopen(req, timeout=45) as response:
                   return response.read(), response.headers.get("content-type", "")
+
+          def route_filename(route):
+              if route == "/":
+                  return "inicio.html"
+              return route.strip("/").replace("/", "_") + ".html"
 
           for label, root in roots.items():
               folder = os.path.join("site-snapshot", label)
               os.makedirs(folder, exist_ok=True)
-              data, content_type = fetch(root)
-              html_path = os.path.join(folder, "index.html")
-              with open(html_path, "wb") as f:
-                  f.write(data)
-              manifest.append({"url": root, "path": html_path, "content_type": content_type, "bytes": len(data)})
+              candidates = []
 
-              text = data.decode("utf-8", errors="replace")
-              candidates = re.findall(r'''(?:src|href)=["']([^"']+)["']''', text, flags=re.I)
-              seen = set()
+              for route in routes:
+                  url = urllib.parse.urljoin(root + "/", route.lstrip("/"))
+                  try:
+                      data, content_type = fetch(url)
+                  except Exception as exc:
+                      manifest.append({"url": url, "error": str(exc)})
+                      continue
+                  html_path = os.path.join(folder, route_filename(route))
+                  with open(html_path, "wb") as f:
+                      f.write(data)
+                  manifest.append({"url": url, "path": html_path, "content_type": content_type, "bytes": len(data)})
+                  text = data.decode("utf-8", errors="replace")
+                  candidates.extend(re.findall(r'''(?:src|href)=["']([^"']+)["']''', text, flags=re.I))
+
               downloaded = 0
               for value in candidates:
-                  absolute = urllib.parse.urljoin(root, value)
+                  absolute = urllib.parse.urljoin(root + "/", value)
                   parsed = urllib.parse.urlparse(absolute)
                   if parsed.scheme not in {"http", "https"}:
                       continue
@@ -67,15 +88,16 @@ jobs:
                   if not (path_lower.endswith((".js", ".css", ".json")) or "/_next/" in path_lower or "/assets/" in path_lower):
                       continue
                   clean_url = urllib.parse.urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, parsed.query, ""))
-                  if clean_url in seen or downloaded >= 80:
+                  dedupe_key = (label, clean_url)
+                  if dedupe_key in global_seen or downloaded >= 180:
                       continue
-                  seen.add(clean_url)
+                  global_seen.add(dedupe_key)
                   try:
                       asset, asset_type = fetch(clean_url)
                   except Exception as exc:
                       manifest.append({"url": clean_url, "error": str(exc)})
                       continue
-                  if len(asset) > 2_500_000:
+                  if len(asset) > 3_500_000:
                       manifest.append({"url": clean_url, "skipped": "too_large", "bytes": len(asset)})
                       continue
                   safe = re.sub(r"[^A-Za-z0-9._-]+", "_", parsed.path.strip("/") or "asset")
@@ -98,5 +120,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site-snapshot
-          git commit -m "[snapshot] Capturar tienda Nubek actual"
+          git commit -m "[snapshot] Capturar rutas de la tienda Nubek"
           git push origin HEAD:catalogo-correcciones-julio-2026
